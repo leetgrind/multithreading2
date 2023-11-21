@@ -1,12 +1,39 @@
+import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class JavaExecutors {
 
     public static void main(String[] args) {
 
-        threadPool();
+        scheduleAtFixedRate();
 
+    }
+
+    static void scheduledService() {
+
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+
+        Runnable runnable = () -> {
+            System.out.println("Starting at " + LocalDateTime.now());
+        };
+
+        System.out.println("Submitted thread at " + LocalDateTime.now());
+        scheduledExecutorService.schedule(runnable, 5, TimeUnit.SECONDS);
+        scheduledExecutorService.shutdown();
+    }
+
+    static void scheduleAtFixedRate() {
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+
+        Runnable runnable = () -> {
+            System.out.println("Starting at " + LocalDateTime.now());
+        };
+
+        System.out.println("Submitted thread at " + LocalDateTime.now());
+        scheduledExecutorService.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
     }
 
     static void threadPool() {
@@ -21,7 +48,6 @@ public class JavaExecutors {
         executorService.submit(runnable1);
         executorService.submit(runnable2);
         executorService.submit(runnable3);
-        executorService.submit(runnable4);
 
         executorService.shutdown();
 
