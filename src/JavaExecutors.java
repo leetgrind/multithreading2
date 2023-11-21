@@ -43,7 +43,6 @@ public class JavaExecutors {
         Runnable runnable1 = getRunnable(1, 3000);
         Runnable runnable2 = getRunnable(2, 5000);
         Runnable runnable3 = getRunnable(3, 4000);
-        Runnable runnable4 = getRunnable(4, 1000);
 
         executorService.submit(runnable1);
         executorService.submit(runnable2);
