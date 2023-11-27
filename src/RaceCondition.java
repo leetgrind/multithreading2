@@ -25,8 +25,12 @@ class Counter {
 
     private int count = 0;
 
-    public synchronized void increase() {
-        count++;
+    public void increase() {
+
+        synchronized (this) {
+            count++;
+        }
+
     }
     public int getCount() {
         return count;
