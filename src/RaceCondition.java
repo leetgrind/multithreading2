@@ -1,8 +1,9 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class RaceCondition {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         ExecutorService executorService = Executors.newFixedThreadPool(20);
 
@@ -16,6 +17,8 @@ public class RaceCondition {
 
         executorService.shutdown();
 
+        executorService.awaitTermination(20, TimeUnit.SECONDS);
+
         System.out.println("Counter: " + counter.getCount());
 
     }
@@ -25,13 +28,10 @@ class Counter {
 
     private int count = 0;
 
-    public void increase() {
-
-        synchronized (this) {
-            count++;
-        }
-
+    public synchronized void increase() {
+        count++;
     }
+
     public int getCount() {
         return count;
     }
