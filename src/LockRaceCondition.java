@@ -1,9 +1,10 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LockRaceCondition {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         ExecutorService executorService = Executors.newFixedThreadPool(20);
 
@@ -17,7 +18,10 @@ public class LockRaceCondition {
 
         executorService.shutdown();
 
+        executorService.awaitTermination(20, TimeUnit.SECONDS);
+
         System.out.println("Counter: " + counter.getCount());
+
 
     }
 }
